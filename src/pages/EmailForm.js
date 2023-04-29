@@ -2,6 +2,7 @@ import { useState } from "react";
 import emailjs from "emailjs-com";
 import DragList from "../minor_components/DragList";
 import "./form.css";
+import caliNerd from "../assets/caliNerd.png";
 
 const EmailForm = () => {
 	const [inputs, setInputs] = useState({
@@ -18,7 +19,7 @@ const EmailForm = () => {
 			{ id: "4drag", content: "Learn bodyweight skills" },
 		],
 		frequency: 1,
-		note: "",
+		note: "Hi, my workout plan should also have the following...",
 	});
 
 	const sendEmail = (inputs) => {
@@ -64,14 +65,37 @@ const EmailForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		let hasEmptyInput = false;
+		for (const key of Object.keys(inputs)) {
+			console.log("note");
+			if (inputs[key] === "" || (inputs[key] === 0 && key !== "note")) {
+				alert("Fill " + key);
+				hasEmptyInput = true;
+				break; // This will break out of the loop immediately
+			}
+		}
+		if (hasEmptyInput === true) {
+			return;
+		}
 		sendEmail(inputs);
-		console.log(inputs);
+		//console.log(inputs);
 	};
 
 	return (
-		<div>
-			<h2>EmailForm 📑</h2>
+		<div
+			style={{
+				display: "flex",
+				justifyContent: "center",
+				flexDirection: "column",
+				alignItems: "center",
+			}}
+		>
+			<div class="imageContainer">
+				<img class="backImage" src={caliNerd}></img>
+			</div>
+
 			<form onSubmit={(e) => handleSubmit(e)}>
+				<h2>EmailForm 📑</h2>
 				<label htmlFor="name">your name:</label>
 				<br />
 				<input
@@ -124,6 +148,7 @@ const EmailForm = () => {
 				<br />
 				<br />
 				<label htmlFor="ageRange">Age Range:</label>
+				<br />
 				<select
 					class="select_input_light"
 					value={inputs.ageRange}
@@ -140,6 +165,7 @@ const EmailForm = () => {
 				<br />
 				<br />
 				<label htmlFor="weight">Weight (kg):</label>
+				<br />
 				<input
 					class="number_input_light"
 					name="weight"
@@ -150,6 +176,7 @@ const EmailForm = () => {
 				<br />
 				<br />
 				<label htmlFor="height">Height (cm):</label>
+				<br />
 				<input
 					class="number_input_light"
 					name="height"

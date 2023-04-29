@@ -20,38 +20,50 @@ const DragList = ({ goals, setGoals }) => {
 
 	return (
 		<div>
-			<label>select order og your goals:</label>
-			<DragDropContext onDragEnd={onDragEnd}>
-				<Droppable droppableId="itemList">
-					{(provided) => (
-						<div ref={provided.innerRef} {...provided.droppableProps}>
-							{items.map(({ id, content }, index) => (
-								<Draggable key={id} draggableId={id} index={index}>
-									{(provided) => (
-										<div
-											class="dragBox"
-											ref={provided.innerRef}
-											{...provided.draggableProps}
-											{...provided.dragHandleProps}
-											style={{
-												cursor: "grab",
-												userSelect: "none",
-												padding: 8,
-												margin: "0 0 8px 0",
-												//background: "#ccc",
-												...provided.draggableProps.style,
-											}}
-										>
-											{index + 1 + ". " + content}
-										</div>
-									)}
-								</Draggable>
-							))}
-							{provided.placeholder}
-						</div>
-					)}
-				</Droppable>
-			</DragDropContext>
+			<label>Goal order:</label>
+			<div class="dragElement">
+				<div className="indexList">
+					<div class="dragIndex">1.</div>
+					<div class="dragIndex">2.</div>
+					<div class="dragIndex">3.</div>
+					<div class="dragIndex">4.</div>
+				</div>
+				<DragDropContext onDragEnd={onDragEnd}>
+					<Droppable droppableId="itemList">
+						{(provided) => (
+							<div
+								class="dragParent "
+								ref={provided.innerRef}
+								{...provided.droppableProps}
+							>
+								{items.map(({ id, content }, index) => (
+									<Draggable key={id} draggableId={id} index={index}>
+										{(provided) => (
+											<div
+												class="dragBox"
+												ref={provided.innerRef}
+												{...provided.draggableProps}
+												{...provided.dragHandleProps}
+												style={{
+													cursor: "grab",
+													userSelect: "none",
+													padding: 8,
+													margin: "0 0 8px 0",
+													//background: "#ccc",
+													...provided.draggableProps.style,
+												}}
+											>
+												{index + 1 + ". " + content}
+											</div>
+										)}
+									</Draggable>
+								))}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext>
+			</div>
 		</div>
 	);
 };

@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
+import "./home.css";
 
 const Home = () => {
 	const navigate = useNavigate();
 	return (
 		<div>
 			<h2>Home ✋</h2>
-			<button onClick={() => navigate("/form")}>create my plan</button>
+			<button class="button_light" onClick={() => navigate("/form")}>
+				Create my plan
+			</button>
 		</div>
 	);
 };
